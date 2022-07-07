@@ -36,7 +36,7 @@ static SariskaNativeiOSPlugin *_sharedInstance;
 {
     NSLog(@"performing sample functions");
     [SariskaMediaTransport initializeSdk];
-    NSLog(@"initialized Sariska Media Transport");
+    NSLog(@"initialized Sariska Media Transport yay!");
 }
 
 @end
