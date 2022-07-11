@@ -35,8 +35,30 @@ static SariskaNativeiOSPlugin *_sharedInstance;
 -(void) performSampleFunction
 {
     NSLog(@"performing sample functions");
+    
     [SariskaMediaTransport initializeSdk];
+    
     NSLog(@"initialized Sariska Media Transport yay!");
+    
+    Connection *connection = [SariskaMediaTransport JitsiConnection:@"1234"];
+    
+    if(connection == NULL){
+        NSLog(@"Connection is not null");
+    }
+    
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+        @YES, @"audio", @YES, @"video", nil];
+    
+    [SariskaMediaTransport createLocalTracks:options callback:^(NSMutableArray * _Nonnull tracks) {
+        for (JitsiLocalTrack *obj in tracks) {
+            if([obj.getType  isEqual: @"video"]){
+                NSLog(@"We are here in local track");
+                RTCVideoView *videoView = [obj render];
+                [videoView setMirror:true];
+                NSLog(@"We are here after local track");
+            }
+        }
+    }];
 }
 
 @end
